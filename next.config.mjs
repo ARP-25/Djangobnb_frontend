@@ -1,9 +1,9 @@
-/** @type {import('next').NextConfig} */
+import { config } from "dotenv";
+
+// Load environment variables from the .env.prod file
+config({ path: ".env.prod" });
+
 const nextConfig = {
-    env: {
-        NEXT_PUBLIC_API_HOST: process.env.NEXT_PUBLIC_API_HOST,
-        NEXT_PUBLIC_WS_HOST: process.env.NEXT_PUBLIC_WS_HOST,
-    },
     images: {
         remotePatterns: [
             {
@@ -19,6 +19,10 @@ const nextConfig = {
                 pathname: "/**",
             },
         ],
+    },
+    env: {
+        NEXT_PUBLIC_API_HOST: process.env.NEXT_PUBLIC_API_HOST,
+        NEXT_PUBLIC_WS_HOST: process.env.NEXT_PUBLIC_WS_HOST,
     },
 };
 
