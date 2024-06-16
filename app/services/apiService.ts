@@ -13,13 +13,15 @@ const apiService = {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
             },
+            credentials: "include", // Ensure cookies are included
         })
             .then((response) => {
                 console.log("Full response:", response);
                 if (!response.ok) {
-                    return Promise.reject(`HTTP error! status: ${response.status}`);
+                    return response.json().then((json) => {
+                        return Promise.reject(json);
+                    });
                 }
-
                 return response.json();
             })
             .then((json) => {
@@ -38,56 +40,61 @@ const apiService = {
         const token = await getAccessToken();
         console.log("Token ============= ", token);
 
-        return new Promise((resolve, reject) => {
-            fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
-                method: "POST",
-                body: data, // Assuming data is an instance of FormData
-                headers: {
-                    Authorization: `Bearer ${token}`, // Sending token for authentication
-                    // No need to set Content-Type when sending FormData
-                },
+        return fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
+            method: "POST",
+            body: data, // Assuming data is an instance of FormData
+            headers: {
+                Authorization: `Bearer ${token}`, // Sending token for authentication
+                // No need to set Content-Type when sending FormData
+            },
+            credentials: "include", // Ensure cookies are included
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    return response.json().then((json) => {
+                        return Promise.reject(json);
+                    });
+                }
+                return response.json();
             })
-                .then((response) => {
-                    if (!response.ok) {
-                        return response.json().then((json) => {
-                            return Promise.reject(json);
-                        });
-                    }
-                    return response.json();
-                })
-                .then((json) => {
-                    console.log("Response:", json);
-                    resolve(json);
-                })
-                .catch((error) => {
-                    console.error("Fetch error:", error);
-                    reject(error);
-                });
-        });
+            .then((json) => {
+                console.log("Response:", json);
+                return json;
+            })
+            .catch((error) => {
+                console.error("Fetch error:", error);
+                throw error;
+            });
     },
 
     postWithoutToken: async function (url: string, data: any): Promise<any> {
         console.log("post", url, data);
 
-        return new Promise((resolve, reject) => {
-            fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
-                method: "POST",
-                body: data,
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
+        return fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
+            method: "POST",
+            body: data,
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            credentials: "include", // Ensure cookies are included
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    return response.json().then((json) => {
+                        return Promise.reject(json);
+                    });
+                }
+                return response.json();
             })
-                .then((response) => response.json())
-                .then((json) => {
-                    console.log("Response:", json);
-
-                    resolve(json);
-                })
-                .catch((error) => {
-                    reject(error);
-                });
-        });
+            .then((json) => {
+                console.log("Response:", json);
+                return json;
+            })
+            .catch((error) => {
+                console.error("Fetch error:", error);
+                throw error;
+            });
     },
 };
 

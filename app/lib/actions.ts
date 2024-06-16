@@ -48,7 +48,7 @@ export async function handleRefresh() {
             console.log("Response - Refresh:", json);
 
             if (json.access) {
-                cookies().set("session_access_token", json.access, {
+                cookies().set("session_accessToken", json.access, {
                     httpOnly: true,
                     secure: false,
                     maxAge: 60 * 60, // 60 minutes
