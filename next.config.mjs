@@ -1,6 +1,5 @@
 import { config } from "dotenv";
 
-// Load environment variables from the .env.prod file
 config({ path: ".env.prod" });
 
 const nextConfig = {
