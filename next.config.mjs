@@ -1,8 +1,9 @@
-import { config } from "dotenv";
-
-config({ path: ".env.prod" });
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+    env: {
+        NEXT_PUBLIC_API_HOST: process.env.NEXT_PUBLIC_API_HOST,
+        NEXT_PUBLIC_WS_HOST: process.env.NEXT_PUBLIC_WS_HOST,
+    },
     images: {
         remotePatterns: [
             {
@@ -19,8 +20,6 @@ const nextConfig = {
             },
         ],
     },
-    env: {
-        NEXT_PUBLIC_API_HOST: process.env.NEXT_PUBLIC_API_HOST,
-        NEXT_PUBLIC_WS_HOST: process.env.NEXT_PUBLIC_WS_HOST,
-    },
 };
+
+export default nextConfig;

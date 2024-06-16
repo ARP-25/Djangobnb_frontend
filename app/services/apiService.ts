@@ -5,8 +5,16 @@ const apiService = {
         console.log("get", url);
 
         const token = await getAccessToken();
+        console.log("Retrieved Token:", token);
 
-        return fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
+        if (!token) {
+            throw new Error("Missing access token");
+        }
+
+        const fullUrl = `${process.env.NEXT_PUBLIC_API_HOST}${url}`;
+        console.log("Request URL:", fullUrl);
+
+        return fetch(fullUrl, {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -38,9 +46,16 @@ const apiService = {
         console.log("post", url, data);
 
         const token = await getAccessToken();
-        console.log("Token ============= ", token);
+        console.log("Retrieved Token:", token);
 
-        return fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
+        if (!token) {
+            throw new Error("Missing access token");
+        }
+
+        const fullUrl = `${process.env.NEXT_PUBLIC_API_HOST}${url}`;
+        console.log("Request URL:", fullUrl);
+
+        return fetch(fullUrl, {
             method: "POST",
             body: data, // Assuming data is an instance of FormData
             headers: {
@@ -68,9 +83,12 @@ const apiService = {
     },
 
     postWithoutToken: async function (url: string, data: any): Promise<any> {
-        console.log("post", url, data);
+        console.log("postWithoutToken", url, data);
 
-        return fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
+        const fullUrl = `${process.env.NEXT_PUBLIC_API_HOST}${url}`;
+        console.log("Request URL:", fullUrl);
+
+        return fetch(fullUrl, {
             method: "POST",
             body: data,
             headers: {
