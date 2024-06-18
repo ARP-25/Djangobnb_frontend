@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 
-config({ path: ".env.prod" });
+config({ path: ".env" });
 
 const nextConfig = {
     images: {
