@@ -2,44 +2,41 @@ import { getAccessToken } from "../lib/actions";
 
 const apiService = {
     get: async function (url: string): Promise<any> {
-        console.log("get", url);
+        try {
+            console.log("get", url);
+            const token = await getAccessToken();
+            console.log("Retrieved Token:", token);
 
-        const token = await getAccessToken();
-        console.log("Retrieved Token:", token);
+            if (!token) {
+                throw new Error("Missing access token");
+            }
 
-        if (!token) {
-            throw new Error("Missing access token");
-        }
+            const fullUrl = `${process.env.NEXT_PUBLIC_API_HOST}${url}`;
+            console.log("Request URL:", fullUrl);
 
-        const fullUrl = `${process.env.NEXT_PUBLIC_API_HOST}${url}`;
-        console.log("Request URL:", fullUrl);
-
-        return fetch(fullUrl, {
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            credentials: "include", // Ensure cookies are included
-        })
-            .then((response) => {
-                console.log("Full response:", response);
-                if (!response.ok) {
-                    return response.json().then((json) => {
-                        return Promise.reject(json);
-                    });
-                }
-                return response.json();
-            })
-            .then((json) => {
-                console.log("Response JSON:", json);
-                return json;
-            })
-            .catch((error) => {
-                console.error("Fetch error:", error);
-                throw error;
+            const response = await fetch(fullUrl, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                credentials: "include",
             });
+
+            console.log("Full response:", response);
+            const json = await response.json();
+
+            if (!response.ok) {
+                return Promise.reject(json);
+            }
+
+            console.log("Response JSON:", json);
+            return json;
+        } catch (error) {
+            console.error("Fetch error:", error);
+            throw error;
+        }
     },
 
     post: async function (url: string, data: any): Promise<any> {

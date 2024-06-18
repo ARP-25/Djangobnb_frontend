@@ -110,7 +110,7 @@ export async function getUserId() {
 //
 //
 export async function getAccessToken() {
-    let accessToken = cookies().get("session_access_token")?.value;
+    let accessToken = cookies().get("session_accessToken")?.value;
 
     if (!accessToken) {
         accessToken = await handleRefresh();
@@ -118,7 +118,16 @@ export async function getAccessToken() {
 
     return accessToken;
 }
-
+// export async function getAccessToken(): Promise<string | null> {
+//     try {
+//         const cookieStore = cookies(); // Ensure this is used in a server context
+//         const token = cookieStore.get("session_accessToken")?.value || null;
+//         return token;
+//     } catch (error) {
+//         console.error("Error retrieving access token:", error);
+//         return null;
+//     }
+// }
 export async function getRefreshToken() {
     let refreshToken = cookies().get("session_refreshToken")?.value;
     console.log("Retrieved refresh token from cookies:", refreshToken);

@@ -13,7 +13,6 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
         userId = await getUserId();
     } catch (error) {
         console.error("Error fetching property data:", error);
-        // Handle the error by displaying a user-friendly message or a fallback UI
         return <div>Error loading property details. Please try again later.</div>;
     }
 
