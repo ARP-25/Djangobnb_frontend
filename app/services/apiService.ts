@@ -42,8 +42,7 @@ const apiService = {
             console.error("Fetch error:", error);
             throw error;
         }
-    }
-};
+    },
 
     post: async function (url: string, data: any): Promise<any> {
         console.log("post", url, data);
