@@ -4,11 +4,12 @@ const apiService = {
     get: async function (url: string): Promise<any> {
         try {
             console.log("get", url);
-            const token = await getAccessToken();
-            console.log("Retrieved Token:", token);
-
-            if (!token) {
-                throw new Error("Missing access token");
+            let token;
+            try {
+                token = await getAccessToken();
+                console.log("Retrieved Token:", token);
+            } catch (error) {
+                console.log("No access token available");
             }
 
             const fullUrl = `${process.env.NEXT_PUBLIC_API_HOST}${url}`;
