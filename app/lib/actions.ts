@@ -2,6 +2,9 @@
 
 import { cookies } from "next/headers";
 
+//const isProduction = process.env.NODE_ENV === "production";
+const isProduction = false;
+
 export async function handleRefresh() {
     console.log("handleRefresh");
 
@@ -50,7 +53,7 @@ export async function handleRefresh() {
             if (json.access) {
                 cookies().set("session_accessToken", json.access, {
                     httpOnly: true,
-                    secure: false,
+                    secure: isProduction,
                     maxAge: 60 * 60, // 60 minutes
                     path: "/",
                 });
@@ -70,34 +73,32 @@ export async function handleRefresh() {
 }
 
 export async function handleLogin(userId: string, accessToken: string, refreshToken: string) {
+    
     cookies().set("session_userId", userId, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        secure: false,
-        maxAge: 60 * 60 * 24 * 7, //One Week
+        secure: isProduction,
+        maxAge: 60 * 60 * 24 * 7, // One Week
         path: "/",
     });
     cookies().set("session_accessToken", accessToken, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        secure: false,
-        maxAge: 60 * 60, //60 Minutes
+        secure: isProduction,
+        maxAge: 60 * 60, // 60 Minutes
         path: "/",
     });
     cookies().set("session_refreshToken", refreshToken, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        secure: false,
-        maxAge: 60 * 60, //One Week
+        secure: isProduction,
+        maxAge: 60 * 60 * 24 * 7, // One Week
         path: "/",
     });
 }
 
 export async function resetAuthCookies() {
     console.log("Resetting cookies");
-    cookies().set("session_userId", "");
-    cookies().set("session_accessToken", "");
-    cookies().set("session_refreshToken", "");
+    cookies().set("session_userId", "", { path: "/" });
+    cookies().set("session_accessToken", "", { path: "/" });
+    cookies().set("session_refreshToken", "", { path: "/" });
 }
 
 //
@@ -118,16 +119,7 @@ export async function getAccessToken() {
 
     return accessToken;
 }
-// export async function getAccessToken(): Promise<string | null> {
-//     try {
-//         const cookieStore = cookies(); // Ensure this is used in a server context
-//         const token = cookieStore.get("session_accessToken")?.value || null;
-//         return token;
-//     } catch (error) {
-//         console.error("Error retrieving access token:", error);
-//         return null;
-//     }
-// }
+
 export async function getRefreshToken() {
     let refreshToken = cookies().get("session_refreshToken")?.value;
     console.log("Retrieved refresh token from cookies:", refreshToken);
