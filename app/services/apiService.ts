@@ -15,13 +15,17 @@ const apiService = {
             const fullUrl = `${process.env.NEXT_PUBLIC_API_HOST}${url}`;
             console.log("Request URL:", fullUrl);
 
+            const headers: HeadersInit = {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            };
+            if (token) {
+                headers.Authorization = `Bearer ${token}`;
+            }
+
             const response = await fetch(fullUrl, {
                 method: "GET",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
+                headers,
                 credentials: "include",
             });
 
@@ -38,7 +42,8 @@ const apiService = {
             console.error("Fetch error:", error);
             throw error;
         }
-    },
+    }
+};
 
     post: async function (url: string, data: any): Promise<any> {
         console.log("post", url, data);
