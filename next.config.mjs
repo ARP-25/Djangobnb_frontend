@@ -12,9 +12,9 @@ const nextConfig = {
                 pathname: "/**",
             },
             {
-                protocol: "http",
-                hostname: "104.248.34.81",
-                port: "1337",
+                protocol: "https",
+                hostname: "djangobnb.com",
+                port: "",
                 pathname: "/**",
             },
         ],
