@@ -20,6 +20,7 @@
     "react-use-websocket": "^4.8.1",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
+    "sweetalert2": "^11.12.1",
     "world-countries": "^5.0.0",
     "zustand": "^4.5.2"
   },

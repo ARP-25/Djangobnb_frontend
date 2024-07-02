@@ -2,13 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { Range } from "react-date-range";
-
+import Swal from "sweetalert2";
 import { differenceInDays, eachDayOfInterval, set, format } from "date-fns";
-
 import useLoginModal from "../../hooks/useLoginModal";
-
 import DatePicker from "../forms/Calendar";
-
 import apiService from "@/app/services/apiService";
 
 const initialDateRange = {
@@ -57,8 +54,21 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({ property, userI
 
                 if (response.success) {
                     console.log("Booking successful");
+                    console.log("bookedDates", bookedDates);
+                    Swal.fire({
+                        title: "Booking successful",
+                        text: `Start Date: ${format(dateRange.startDate, "yyyy-MM-dd")}\nEnd Date: ${format(dateRange.endDate, "yyyy-MM-dd")}`,
+                        icon: "success",
+                        confirmButtonText: "OK",
+                    });
                 } else {
                     console.log("Booking failed");
+                    Swal.fire({
+                        title: "Booking failed",
+                        text: response.message,
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    });
                 }
             }
         } else {
