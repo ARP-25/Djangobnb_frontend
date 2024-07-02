@@ -11,7 +11,7 @@ const categories = [
     },
 
     {
-        name: "mansion",
+        name: "villas",
         displayName: "Villas",
         imageSrc: "/mansions_logo.jpg",
     },

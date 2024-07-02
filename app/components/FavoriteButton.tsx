@@ -1,6 +1,7 @@
 "use client";
 import apiService from "../services/apiService";
-
+import { getUserId } from "@/app/lib/actions";
+import useLoginModal from "@/app/hooks/useLoginModal";
 interface FavoriteButtonProps {
     id: string;
     is_favorite: boolean;
@@ -8,14 +9,23 @@ interface FavoriteButtonProps {
 }
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({ id, is_favorite, markFavorite }) => {
+    const userId = getUserId();
+    const loginModal = useLoginModal();
+    console.log("In FavoriteButton.tsx, userId: ", userId);
+
     const toggleFavorite = async (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
-        const response = await apiService.post(`/api/properties/${id}/toggle_favorite/`, {});
-        markFavorite(response.is_favorite);
+        if (userId !== null) {
+            loginModal.open();
+        } else {
+            const response = await apiService.post(`/api/properties/${id}/toggle_favorite/`, {});
+            markFavorite(response.is_favorite);
+        }
     };
+
     return (
         <>
-            <div onClick={toggleFavorite} className={`absolute top-2 right-2 ${is_favorite ? "text-airbnb" : "text-white"} hover:text-airbnb`}>
+            <div onClick={toggleFavorite} className={`cursor-pointer absolute top-2 right-2 ${is_favorite ? "text-airbnb" : "text-white"} hover:text-airbnb`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                     <path
                         strokeLinecap="round"

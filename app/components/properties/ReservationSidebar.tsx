@@ -134,7 +134,10 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({ property, userI
                 </select>
             </div>
 
-            <div onClick={performBooking} className="w-full mb-6 py-6 text-center text-white bg-airbnb hover:bg-airbnbDark rounded-xl transition">
+            <div
+                onClick={performBooking}
+                className="cursor-pointer w-full mb-6 py-6 text-center text-white bg-airbnb hover:bg-airbnbDark rounded-xl transition"
+            >
                 Book
             </div>
             <div className="flex mb-4 justify-between align-center">
