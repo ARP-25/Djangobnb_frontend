@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+.swal2-confirm {
+    background-color: #ff385c !important; /* Example color: tomato */
+    color: white !important;
+}

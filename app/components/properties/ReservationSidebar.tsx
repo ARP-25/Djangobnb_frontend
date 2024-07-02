@@ -50,22 +50,35 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({ property, userI
                 formData.append("total_price", totalPrice.toString());
                 formData.append("guests", guests);
 
-                const response = await apiService.post(`/api/properties/${property.id}/book/`, formData);
+                try {
+                    const response = await apiService.post(`/api/properties/${property.id}/book/`, formData);
 
-                if (response.success) {
-                    console.log("Booking successful");
-                    console.log("bookedDates", bookedDates);
-                    Swal.fire({
-                        title: "Booking successful",
-                        text: `Start Date: ${format(dateRange.startDate, "yyyy-MM-dd")}\nEnd Date: ${format(dateRange.endDate, "yyyy-MM-dd")}`,
-                        icon: "success",
-                        confirmButtonText: "OK",
-                    });
-                } else {
-                    console.log("Booking failed");
+                    if (response.success) {
+                        console.log("Booking successful");
+                        console.log("bookedDates", bookedDates);
+                        Swal.fire({
+                            title: "Booking successful",
+                            text: `Start Date: ${format(dateRange.startDate, "yyyy-MM-dd")}\nEnd Date: ${format(dateRange.endDate, "yyyy-MM-dd")}`,
+                            icon: "success",
+                            confirmButtonText: "OK",
+                            customClass: {
+                                confirmButton: "swal2-confirm",
+                            },
+                        });
+                    } else {
+                        console.log("Booking failed with response:", response);
+                        Swal.fire({
+                            title: "Booking failed",
+                            text: response.message || "An error occurred",
+                            icon: "error",
+                            confirmButtonText: "OK",
+                        });
+                    }
+                } catch (error) {
+                    console.log("Booking error caught in catch:");
                     Swal.fire({
                         title: "Booking failed",
-                        text: response.message,
+                        text: "An error occurred, try a different date range or contact support.",
                         icon: "error",
                         confirmButtonText: "OK",
                     });
