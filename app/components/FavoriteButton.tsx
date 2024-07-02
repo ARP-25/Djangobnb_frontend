@@ -26,7 +26,14 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ id, is_favorite, markFa
     return (
         <>
             <div onClick={toggleFavorite} className={`cursor-pointer absolute top-2 right-2 ${is_favorite ? "text-airbnb" : "text-white"} hover:text-airbnb`}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="rgba(47,79,113, 0.6)"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="size-6"
+                >
                     <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
