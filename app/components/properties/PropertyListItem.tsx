@@ -26,13 +26,15 @@ const PropertyListItems: React.FC<PropertyProps> = ({ property, markFavorite }) 
                     <FavoriteButton id={property.id} is_favorite={property.is_favorite} markFavorite={(is_favorite) => markFavorite(is_favorite)} />
                 )}
             </div>
-            <div className="mt-2">
-                <p className="text-lg font-bold">{property.name}</p>
-            </div>
-            <div className="mt-2">
-                <p className="text-sm text-gray-500">
-                    <strong>${property.price_per_night}</strong> per night
-                </p>
+            <div>
+                <div className="mt-2">
+                    <p className="text-lg font-bold whitespace-normal break-words">{property.name}</p>
+                </div>
+                <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                        <strong>${property.price_per_night}</strong> per night
+                    </p>
+                </div>
             </div>
         </div>
     );

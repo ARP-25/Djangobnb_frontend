@@ -36,12 +36,12 @@ const Categories = () => {
 
     const handlePrevClick = () => {
         setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-        console.log("currentIndex", currentIndex);
+        // console.log("currentIndex", currentIndex);
     };
 
     const handleNextClick = () => {
         setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, categories.length / 2 - 1));
-        console.log("currentIndex", currentIndex);
+        // console.log("currentIndex", currentIndex);
     };
 
     //
@@ -91,7 +91,7 @@ const Categories = () => {
                         <div
                             key={index}
                             onClick={() => _setCategory(cat.name)}
-                            className={`my-3 pb-3 mb-1 flex-shrink-0 flex flex-col items-center space-y-2 cursor-pointer border-b-2 ${
+                            className={`my-3 pb-3 mx-2 mb-1 flex-shrink-0 flex flex-col items-center space-y-2 cursor-pointer border-b-2 ${
                                 category == cat.name ? "border-black" : "border-white"
                             } opacity-60 hover:border-gray-200 hover:opacity-100`}
                             style={{ width: "89px" }}
