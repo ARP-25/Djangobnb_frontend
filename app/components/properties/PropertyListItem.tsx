@@ -31,7 +31,7 @@ const PropertyListItems: React.FC<PropertyProps> = ({ property, markFavorite }) 
             </div>
             <div className="mt-2">
                 <p className="text-sm text-gray-500">
-                    <strong>$200</strong> {property.price_per_night} per night
+                    <strong>${property.price_per_night}</strong> per night
                 </p>
             </div>
         </div>

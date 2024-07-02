@@ -28,6 +28,7 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({ userId, token, 
 
     useEffect(() => {
         console.log("Connection state changed", readyState);
+        console.log("url confirmation", `${process.env.NEXT_PUBLIC_WS_HOST}/ws/${conversation.id}/?token=${token}`);
     }, [readyState]);
 
     useEffect(() => {

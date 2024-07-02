@@ -32,7 +32,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={inter.className}>
                 <Navbar />
-                <div className="pt-36">{children}</div>
+                <div className="pt-32">{children}</div>
                 {/* <Modal label="Modal Test" content={content} isOpen={true} /> */}
                 <LoginModal />
                 <SignupModal />
