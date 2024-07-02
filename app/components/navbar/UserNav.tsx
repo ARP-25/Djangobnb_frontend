@@ -16,7 +16,7 @@ const UserNav: React.FC<UserNavProps> = ({ userId }) => {
     const router = useRouter();
 
     return (
-        <div className="p-2  relative inline-block border rounded-full flex items-center justify-center">
+        <div className="p-2  relative border rounded-full flex items-center justify-center">
             <button onClick={() => setIsOpen(!isOpen)} className="flex items-center">
                 {/* Hamburger */}
                 <svg fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -34,7 +34,7 @@ const UserNav: React.FC<UserNavProps> = ({ userId }) => {
             </button>
 
             {isOpen && (
-                <div className="w-[220px] absolute top-[60px] right-0 bg-white-200 border rounded-xl shadow-md flex flex-col cursoir-pointer">
+                <div className="w-[220px] z-50 absolute top-[60px] right-0 bg-white-200 border rounded-xl shadow-md flex flex-col cursoir-pointer">
                     {userId !== null ? (
                         <>
                             <LogoutButton />

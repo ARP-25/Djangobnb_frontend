@@ -7,11 +7,12 @@ import { getUserId } from "@/app/lib/actions";
 const Navbar = async () => {
     const userId = await getUserId();
     return (
-        <nav className="w-full fixed top-0 left-0 py-6 border-b bg-white z-10">
+        <nav className="w-full fixed top-0 left-0 py-4 border-b bg-white z-10">
             <div className="max-w-[1500px] mx-auto px-8">
                 <div className="flex justify-between items-center">
-                    <Link href="/" className="flex-shrink-2">
-                        <Image src="/logo.png" alt="Djangobnb Logo" width={200} height={50} />
+                    <Link href="/" className="flex items-center flex-shrink-2">
+                        <Image src="/airbnb_logo.png" alt="Djangobnb Logo" width={50} height={50} />
+                        <span className="pl-2 text-airbnb font-bold text-xl">djangobnb</span>
                     </Link>
 
                     <div className="flex space-x-6">

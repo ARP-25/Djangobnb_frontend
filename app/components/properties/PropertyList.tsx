@@ -128,6 +128,11 @@ const PropertyList: React.FC<PropertyListProps> = ({ host_id, favorites }) => {
 
     return (
         <>
+            {properties.length === 0 && (
+                <>
+                    <div>No properties found</div>
+                </>
+            )}
             {properties.map((property) => (
                 <PropertyListItem key={property.id} property={property} markFavorite={(is_favorite: any) => markFavorite(property.id, is_favorite)} />
             ))}
