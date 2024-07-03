@@ -11,15 +11,22 @@ const Navbar = async () => {
             <div className="max-w-[1500px] mx-auto px-8">
                 <div className="flex justify-between items-center">
                     <Link href="/" className="flex items-center flex-shrink-2">
-                        <Image src="/airbnb_logo.png" alt="Djangobnb Logo" width={50} height={50} />
-                        <span className="pl-2 text-airbnb font-bold text-xl">djangobnb</span>
+                        <div className="relative h-[40px] w-[40px] ">
+                            <Image
+                                src="/airbnb_logo.png"
+                                alt="Djangobnb Logo"
+                                layout="fill"
+                                objectFit="contain" // This ensures the image fits within the bounds
+                            />
+                        </div>
+                        <span className="pl-2 text-airbnb hidden sm:inline font-bold text-xl">djangobnb</span>
                     </Link>
 
-                    <div className="flex space-x-6">
+                    <div className="flex sm:space-x-6">
                         <SearchFilters />
                     </div>
 
-                    <div className="flex space-x-6">
+                    <div className="flex sm:space-x-6">
                         <AddPropertyButton userId={userId} />
                         <UserNav userId={userId} />
                     </div>
